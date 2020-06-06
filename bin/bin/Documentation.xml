@@ -1,0 +1,1531 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HLTVApi</name>
+    </assembly>
+    <members>
+        <member name="M:HLTVApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,HLTVApi.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:HLTVApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:HLTVApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,HLTVApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,HLTVApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(HLTVApi.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:HLTVApi.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},HLTVApi.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:HLTVApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:HLTVApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleKey.#ctor(HLTVApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:HLTVApi.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,HLTVApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:HLTVApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:HLTVApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HLTVApi.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:HLTVApi.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="M:HLTVApi.Controllers.EventController.Get">
+            <summary>
+            Parse Ongoing events
+            </summary>
+            <returns>Ongoing Events Information</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.EventController.Get(System.Int32)">
+            <summary>
+            Parse Event by ID
+            </summary>
+            <param name="id">Event Identifier</param>
+            <returns>Event Information</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.EventController.GetStats(System.Int32)">
+            <summary>
+            Parse Event Statistics by ID
+            </summary>
+            <param name="id">Event Identifier</param>
+            <returns>Players' Stats</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.MatchController.Get">
+            <summary>
+            Parse all Live and Upcoming matches
+            </summary>
+            <returns>List Of Matches</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.MatchController.Get(System.Int32)">
+            <summary>
+            Parse Match Informnation
+            </summary>
+            <param name="id">Match Identifier</param>
+            <returns>Match Information</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.MatchController.GetStats(System.Int32)">
+            <summary>
+            Parse Info of Finished Match
+            </summary>
+            <param name="id">Match Identifier</param>
+            <returns>Match Statistics Information</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.PlayerController.Get">
+            <summary>
+            All players from hltv/stats/players
+            </summary>
+            <returns>Returns Collection of Players</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.PlayerController.Get(System.Int32)">
+            <summary>
+            Returns Player Information by ID
+            </summary>
+            <param name="id">Player Identifier</param>
+            <returns>Player Information</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.PlayerController.GetByName(System.String)">
+            <summary>
+            Returns Player Information by Nickname
+            </summary>
+            <param name="name">Nickname</param>
+            <returns>Player Information</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.PlayerController.GetStats(System.Int32,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns Stats With Filters
+            </summary>
+            <param name="id">Player ID</param>
+            <param name="startDate">Start Date</param>
+            <param name="endDate">End Date</param>
+            <param name="matchFilter">Match Filter</param>
+            <param name="rankingFilter">Ranking Filter</param>
+            <param name="mapFilter">Map Filter</param>
+            <returns>Player Statistics</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.PlayerController.GetStats(System.Int32)">
+            <summary>
+            Returns Stats With Filters
+            </summary>
+            <param name="id">Player ID</param>
+            <returns>Player Statistics</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.PlayerController.GetPlayerRanking(System.Int32,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Gets Player Rating
+            </summary>
+            <param name="id">Player Identifier</param>
+            <param name="startDate">Start Date</param>
+            <param name="endDate">End Date</param>
+            <param name="matchFilter">Match Filter</param>
+            <param name="rankingFilter">Ranking Filter</param>
+            <param name="mapFilter">Map Filter</param>
+            <returns>Player Rating</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.PlayerController.GetPlayerRanking(System.Int32)">
+            <summary>
+            Gets Player Rating
+            </summary>
+            <param name="id">Player Identifier</param>
+            <returns>Player Rating</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.TeamController.Get(System.Int32)">
+            <summary>
+            Parse Team From hltv/stats/team Page
+            </summary>
+            <param name="id">Team Identifier</param>
+            <returns>Team Players, Statistics etc.</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.TeamController.GetStats(System.Int32)">
+            <summary>
+            Parse Team Stats
+            </summary>
+            <param name="id"></param>
+            <returns>Lineup, Team Statistics, Maps Statistics, Recent Results</returns>
+        </member>
+        <member name="M:HLTVApi.Controllers.TeamController.GetRanking(System.Int32)">
+            <summary>
+            Team Place in Ranking
+            </summary>
+            <param name="id">Team Identifier</param>
+            <returns>Ranking place, points, change</returns>
+        </member>
+        <member name="T:HLTVApi.Models.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.ID">
+            <summary>
+            Event Identifier
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.PrizePool">
+            <summary>
+            Prize Pool of the Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.StartDate">
+            <summary>
+            Start Date of Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.EndDate">
+            <summary>
+            End Date of Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.TeamsAmount">
+            <summary>
+            Amount of Teams Attending
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.Location">
+            <summary>
+            Location of Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.MapPool">
+            <summary>
+            Map Pool
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.Formats">
+            <summary>
+            Format
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.Distribution">
+            <summary>
+            Prize Pool Distribution
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Event.Teams">
+            <summary>
+            Teams Names
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.Event.#ctor(System.Int32,System.Int32,System.DateTime,System.DateTime,System.Int32,System.String,System.String[],HLTVApi.Models.Format[],System.Int32[],System.String[])">
+            <summary>
+            Constructor
+            </summary>
+            <param name="id">Event Identifier</param>
+            <param name="prize">Prize Pool</param>
+            <param name="startDate">Start Date</param>
+            <param name="endDate">End Date</param>
+            <param name="teamsAmount">Amount of Attending Teams</param>
+            <param name="location">Location</param>
+            <param name="mapPool">Map Pool</param>
+            <param name="formats">Format</param>
+            <param name="distribution">Prize Pool Distribution</param>
+            <param name="teams">Teams Names</param>
+        </member>
+        <member name="T:HLTVApi.Models.Format">
+            <summary>
+            Format of Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Format.Stage">
+            <summary>
+            Stage
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Format.Process">
+            <summary>
+            Format of this Stage
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.Format.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="stage">Stage</param>
+            <param name="process">Description</param>
+        </member>
+        <member name="T:HLTVApi.Models.EventStats">
+            <summary>
+            Players' Statistics on Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.EventStats.Player">
+            <summary>
+            Player Nickname
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.EventStats.Team">
+            <summary>
+            Team Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.EventStats.Maps">
+            <summary>
+            Maps Played
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.EventStats.KDdiff">
+            <summary>
+            Kill/Death difference
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.EventStats.KD">
+            <summary>
+            Kill/Death Ratio
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.EventStats.Rating">
+            <summary>
+            Rating
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.EventStats.#ctor(System.String,System.String,System.Int32,System.Int32,System.Double,System.Double)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="player">Player Name</param>
+            <param name="team">Team Name</param>
+            <param name="maps">Maps Played</param>
+            <param name="kddiff">Kill/Death difference</param>
+            <param name="kd">Kill/Death ratio</param>
+            <param name="rating">Rating</param>
+        </member>
+        <member name="F:HLTVApi.Models.Match.TeamA">
+            <summary>
+            Name of The First Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.TeamB">
+            <summary>
+            Name of The Second Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.IDA">
+            <summary>
+            ID of First Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.IDB">
+            <summary>
+            ID of Second Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.CountryA">
+            <summary>
+            Country of The First Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.CountryB">
+            <summary>
+            Country of The Second Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.ID">
+            <summary>
+            Match Identifier
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.Status">
+            <summary>
+            Match Status (Live, Upcoming, Over)
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.Format">
+            <summary>
+            Match Format (BO1, BO3, BO5...)
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.Winner">
+            <summary>
+            Match Winner - Team Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.Score">
+            <summary>
+            Score
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.Veto">
+            <summary>
+            Map Veto
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.PlayersA">
+            <summary>
+            Players' Nicknames of The First Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.PlayersB">
+            <summary>
+            Players' Nicknames of The Second Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.DateTime">
+            <summary>
+            Match Start Date and Time
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.Streams">
+            <summary>
+            Commentators Links
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.IsLive">
+            <summary>
+            Is Match Live?
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Match.HeadToHead">
+            <summary>
+            Head To Head Information
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Models.MatchStatus">
+            <summary>
+            Match Status Class
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStatus.Over">
+            <summary>
+            Match Is Over
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStatus.Live">
+            <summary>
+            Match Is Live
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStatus.Upcoming">
+            <summary>
+            Match is Upcoming
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Models.HeadToHead">
+            <summary>
+            Head To Head Information Class
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHead.TeamAWins">
+            <summary>
+            Amount of The First Team Wins
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHead.TeamBWins">
+            <summary>
+            Amount of The Second Team Wins
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHead.Overtimes">
+            <summary>
+            Amount of Overtimes
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHead.Results">
+            <summary>
+            Head To Head Results
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.HeadToHead.#ctor(System.Int32,System.Int32,System.Int32,HLTVApi.Models.HeadToHeadMatch[])">
+            <summary>
+            Constructor
+            </summary>
+            <param name="teamAwins">Amount of First Team Wins</param>
+            <param name="teamBwins">Amount of Seconds Team Wins</param>
+            <param name="overtimes">Amount of Overtimes</param>
+            <param name="results">Results of Each Head to Head match</param>
+        </member>
+        <member name="T:HLTVApi.Models.HeadToHeadMatch">
+            <summary>
+            Head To Head Match Class
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHeadMatch.Date">
+            <summary>
+            Date of the Match
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHeadMatch.Winner">
+            <summary>
+            Winner of the Match
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHeadMatch.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHeadMatch.Map">
+            <summary>
+            Map
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.HeadToHeadMatch.Score">
+            <summary>
+            Result
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.HeadToHeadMatch.#ctor(System.DateTime,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="date">Date of Match</param>
+            <param name="winner">Winner of The Match</param>
+            <param name="Event">Event</param>
+            <param name="map">Map</param>
+            <param name="score">Final Score</param>
+        </member>
+        <member name="T:HLTVApi.Models.MatchStats">
+            <summary>
+            Match Stats Class
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStats.TeamARating">
+            <summary>
+            First Team Rating
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStats.TeamBRating">
+            <summary>
+            Second Team Rating
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStats.TeamAFKs">
+            <summary>
+            Amount of First Team 'First Kill's
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStats.TeamBFKs">
+            <summary>
+            Amount of Second Team 'First Kill's
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStats.TeamAClutches">
+            <summary>
+            Amount of First Team Clutches
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStats.TeamBClutches">
+            <summary>
+            Amount of Second Team Clutches
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchStats.PlayersStats">
+            <summary>
+            Player Stats
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.MatchStats.#ctor(System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.Int32,HLTVApi.Models.MatchPlayerStats[])">
+            <summary>
+            Constructor
+            </summary>
+            <param name="teamARating">First Team Rating</param>
+            <param name="teamBRating">Second Team Rating</param>
+            <param name="teamAFKs">First Team First Kills</param>
+            <param name="teamBFKs">Second Team First Kills</param>
+            <param name="teamAClutches">First Team Clutches</param>
+            <param name="teamBClutches">Second Team Clutches</param>
+            <param name="playersStats">Player Stats</param>
+        </member>
+        <member name="T:HLTVApi.Models.MatchPlayerStats">
+            <summary>
+            Match Player Stats Class
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.Nickname">
+            <summary>
+            Player Nickname
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.Kills">
+            <summary>
+            Kills amount
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.HeadShots">
+            <summary>
+            HeadShots amount
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.Assists">
+            <summary>
+            Assists amount
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.FlashAssists">
+            <summary>
+            FlashAssists amount
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.Deaths">
+            <summary>
+            Deaths amount
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.KAST">
+            <summary>
+            Kill, assist, survived or traded
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.ADR">
+            <summary>
+            Average Damage per round
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.FKDiff">
+            <summary>
+            First Kill - Death difference
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchPlayerStats.Rating">
+            <summary>
+            Rating
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.MatchPlayerStats.#ctor(System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double,System.Double,System.Int32,System.Double)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="nickname">Player nickname</param>
+            <param name="kills">Kills</param>
+            <param name="hs">HeadShots</param>
+            <param name="assists">Assists</param>
+            <param name="Fassists">Flash Assists</param>
+            <param name="deaths">Deaths</param>
+            <param name="kast">KAST</param>
+            <param name="adr">ADR</param>
+            <param name="fkdiff">First Kill-Death Difference</param>
+            <param name="rating">Rating</param>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Id">
+            <summary>
+            Player Identifier
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Name">
+            <summary>
+            Nickname
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Team">
+            <summary>
+            Current Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Age">
+            <summary>
+            Player age
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.FirstName">
+            <summary>
+            First Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.LastName">
+            <summary>
+            Last Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Country">
+            <summary>
+            Country
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Twitch">
+            <summary>
+            Twitch Link
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Twitter">
+            <summary>
+            Twitter Link
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Facebook">
+            <summary>
+            Facebook Link
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Player.Statistics">
+            <summary>
+            Player Stats
+            </summary>
+        </member>
+        <member name="T:HLTVApi.Models.PlayerStats">
+            <summary>
+            Player Stats
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Rating">
+            <summary>
+            HLTV Rating 2.0
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.ADR">
+            <summary>
+            Average Damage per Round
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.KAST">
+            <summary>
+            Percentage of rounds in which player either had a kill, assist, survived or traded
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Kills">
+            <summary>
+            Total kills
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Deaths">
+            <summary>
+            Total deaths
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.KDDifference">
+            <summary>
+            Kill - Death difference
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.OpKillRatio">
+            <summary>
+            Opening Kill Ratio
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.OpKillRating">
+            <summary>
+            Opening Kill Rating
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Rounds0k">
+            <summary>
+            Rounds with 0 kills
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Rounds1k">
+            <summary>
+            Rounds with 1 kill
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Rounds2k">
+            <summary>
+            Rounds with 2 kills
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Rounds3k">
+            <summary>
+            Rounds with 3 kills
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Rounds4k">
+            <summary>
+            Rounds with 4 kills
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerStats.Rounds5k">
+            <summary>
+            Rounds with 5 kills
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RankFilter.All">
+            <summary>
+            All
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RankFilter.Top5">
+            <summary>
+            Top 5
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RankFilter.Top10">
+            <summary>
+            Top 10
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RankFilter.Top20">
+            <summary>
+            Top 20
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RankFilter.Top30">
+            <summary>
+            Top 30
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RankFilter.Top50">
+            <summary>
+            Top 50
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.All">
+            <summary>
+            All maps
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Cache">
+            <summary>
+            Cache
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Season">
+            <summary>
+            Season
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Dust2">
+            <summary>
+            Dust2
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Mirage">
+            <summary>
+            Mirage
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Inferno">
+            <summary>
+            Inferno
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Nuke">
+            <summary>
+            Nuke
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Train">
+            <summary>
+            Train
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Cbble">
+            <summary>
+            Cbble
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Overpass">
+            <summary>
+            Overpass
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Tuscan">
+            <summary>
+            Tuscan
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapFilter.Vertigo">
+            <summary>
+            Vertigo
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchFilter.All">
+            <summary>
+            All
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchFilter.Lan">
+            <summary>
+            LAN
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchFilter.Online">
+            <summary>
+            Online
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchFilter.BigEvents">
+            <summary>
+            Big Events
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MatchFilter.Majors">
+            <summary>
+            Majors
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerRanking.Id">
+            <summary>
+            Player ID
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerRanking.Name">
+            <summary>
+            Player Nickname
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.PlayerRanking.Rating">
+            <summary>
+            Rating
+            </summary>
+        </member>
+        <member name="M:HLTVApi.Models.PlayerRanking.#ctor(System.Int32,System.String,System.Double)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="id">Player Identifier</param>
+            <param name="name">Player Nickname</param>
+            <param name="rating">Rating</param>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Name">
+            <summary>
+            Team Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Country">
+            <summary>
+            Country of Team
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Ranking">
+            <summary>
+            Ranking Place
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Top30Core">
+            <summary>
+            Weeks in Top30 for Core
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Age">
+            <summary>
+            Average Player Age
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Twitter">
+            <summary>
+            Twiiter link
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Facebook">
+            <summary>
+            Facebook link
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Trophies">
+            <summary>
+            Won Trophies
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Lineup">
+            <summary>
+            Current Lineup
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.Statistics">
+            <summary>
+            Team Statistics
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.MapsStats">
+            <summary>
+            Maps statistics
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.Team.RecentResults">
+            <summary>
+            Recent results (Last 30 Matches)
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.MapsPlayed">
+            <summary>
+            Maps played
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.Wins">
+            <summary>
+            Wins
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.Draws">
+            <summary>
+            Draws
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.Losses">
+            <summary>
+            Losses
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.Kills">
+            <summary>
+            Total kills
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.Deaths">
+            <summary>
+            Total deaths
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.RoundsPlayed">
+            <summary>
+            Rounds played
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStats.KD">
+            <summary>
+            K/D Ratio
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.Name">
+            <summary>
+            Map Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.Wins">
+            <summary>
+            Wins
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.Draws">
+            <summary>
+            Draws
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.Losses">
+            <summary>
+            Losses
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.WinRate">
+            <summary>
+            Win rate
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.RoundsPlayed">
+            <summary>
+            Total rounds
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.WinRateFirstKill">
+            <summary>
+            Round win-% after getting first kill
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.MapStats.WinRateFirstDeath">
+            <summary>
+            Round win-% after receiving first death
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RecentResult.Date">
+            <summary>
+            Match Date
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RecentResult.Event">
+            <summary>
+            Event
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RecentResult.Opponent">
+            <summary>
+            Opponent Team Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RecentResult.Map">
+            <summary>
+            Map Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RecentResult.Result">
+            <summary>
+            Score
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.RecentResult.WL">
+            <summary>
+            Result: W/L
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStatistics.Lineup">
+            <summary>
+            Current Lineup
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStatistics.Statistics">
+            <summary>
+            Team Statistics
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStatistics.MapStats">
+            <summary>
+            Maps Statistics
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamStatistics.RecentResults">
+            <summary>
+            Recent Results
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamRanking.ID">
+            <summary>
+            Team Identifier
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamRanking.Name">
+            <summary>
+            Team Name
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamRanking.Points">
+            <summary>
+            Points
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamRanking.Place">
+            <summary>
+            Place in Ranking
+            </summary>
+        </member>
+        <member name="F:HLTVApi.Models.TeamRanking.Change">
+            <summary>
+            Change in last period
+            </summary>
+        </member>
+    </members>
+</doc>
