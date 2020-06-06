@@ -1,0 +1,2 @@
+# HLTVApi
+Unofficial HLTV API
