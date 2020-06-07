@@ -1,5 +1,5 @@
 # HLTVApi
-Unofficial HLTV API
+Unofficial HLTV API on C#
 # Event:
 	Get();
 	Get(int id);
