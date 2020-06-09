@@ -18,6 +18,7 @@ Unofficial HLTV API on C#
 	GetPlayerRanking(int id);
 # Team:
 	Get(int id);
+	Get(int id, string teamLink);
 	GetStats(int id);
 	GetRanking(int id);
 
